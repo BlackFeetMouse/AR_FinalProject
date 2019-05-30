@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B4BBB3A229F6B860088F97E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4BBB39229F6B860088F97E /* main.cpp */; };
 		5B4C23D8226442ED00DFE5D2 /* libopencv_photo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4C234B226442EA00DFE5D2 /* libopencv_photo.dylib */; };
 		5B4C23D9226442ED00DFE5D2 /* libopencv_optflow.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4C234C226442EA00DFE5D2 /* libopencv_optflow.dylib */; };
 		5B4C23DA226442ED00DFE5D2 /* libopencv_dpm.4.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4C234D226442EA00DFE5D2 /* libopencv_dpm.4.1.0.dylib */; };
@@ -151,7 +152,6 @@
 		5B4C246622644F6F00DFE5D2 /* Info.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5B4C2465226444A800DFE5D2 /* Info.plist */; };
 		5BC133F4229F56240080F305 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC133F3229F56240080F305 /* OpenGL.framework */; };
 		5BC133F6229F568A0080F305 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC133F5229F568A0080F305 /* libglfw.3.3.dylib */; };
-		5BC13401229F5AB50080F305 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BC13400229F5AB50080F305 /* main.cpp */; };
 		5BC13404229F5AD40080F305 /* MarkerTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BC13403229F5AD40080F305 /* MarkerTracker.cpp */; };
 		5BC13407229F5AE50080F305 /* PoseEstimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BC13406229F5AE50080F305 /* PoseEstimation.cpp */; };
 /* End PBXBuildFile section */
@@ -170,6 +170,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5B4BBB39229F6B860088F97E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		5B4BBB3C229F6BBB0088F97E /* DrawPrimitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawPrimitives.h; sourceTree = "<group>"; };
 		5B4C234B226442EA00DFE5D2 /* libopencv_photo.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_photo.dylib; path = ../../../../usr/local/Cellar/opencv/4.1.0/lib/libopencv_photo.dylib; sourceTree = "<group>"; };
 		5B4C234C226442EA00DFE5D2 /* libopencv_optflow.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_optflow.dylib; path = ../../../../usr/local/Cellar/opencv/4.1.0/lib/libopencv_optflow.dylib; sourceTree = "<group>"; };
 		5B4C234D226442EA00DFE5D2 /* libopencv_dpm.4.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_dpm.4.1.0.dylib; path = ../../../../usr/local/Cellar/opencv/4.1.0/lib/libopencv_dpm.4.1.0.dylib; sourceTree = "<group>"; };
@@ -315,8 +317,6 @@
 		5B56FDDD2264098F00C3D187 /* AugmentedReality */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AugmentedReality; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BC133F3229F56240080F305 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		5BC133F5229F568A0080F305 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../usr/local/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
-		5BC13400229F5AB50080F305 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../Desktop/Final/main.cpp; sourceTree = "<group>"; };
-		5BC13402229F5AC70080F305 /* DrawPrimitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawPrimitives.h; path = ../../../Desktop/Final/DrawPrimitives.h; sourceTree = "<group>"; };
 		5BC13403229F5AD40080F305 /* MarkerTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MarkerTracker.cpp; sourceTree = "<group>"; };
 		5BC13405229F5AD60080F305 /* MarkerTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkerTracker.h; sourceTree = "<group>"; };
 		5BC13406229F5AE50080F305 /* PoseEstimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PoseEstimation.cpp; sourceTree = "<group>"; };
@@ -648,12 +648,12 @@
 		5B56FDDF2264098F00C3D187 /* AugmentedReality */ = {
 			isa = PBXGroup;
 			children = (
-				5BC13402229F5AC70080F305 /* DrawPrimitives.h */,
-				5BC13400229F5AB50080F305 /* main.cpp */,
 				5BC13405229F5AD60080F305 /* MarkerTracker.h */,
 				5BC13403229F5AD40080F305 /* MarkerTracker.cpp */,
 				5BC13406229F5AE50080F305 /* PoseEstimation.cpp */,
+				5B4BBB39229F6B860088F97E /* main.cpp */,
 				5BC13408229F5AEA0080F305 /* PoseEstimation.h */,
+				5B4BBB3C229F6BBB0088F97E /* DrawPrimitives.h */,
 			);
 			path = AugmentedReality;
 			sourceTree = "<group>";
@@ -716,7 +716,7 @@
 			files = (
 				5BC13407229F5AE50080F305 /* PoseEstimation.cpp in Sources */,
 				5BC13404229F5AD40080F305 /* MarkerTracker.cpp in Sources */,
-				5BC13401229F5AB50080F305 /* main.cpp in Sources */,
+				5B4BBB3A229F6B860088F97E /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
