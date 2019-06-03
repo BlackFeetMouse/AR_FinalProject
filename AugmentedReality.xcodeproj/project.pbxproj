@@ -149,7 +149,7 @@
 		5B4C2462226442ED00DFE5D2 /* libopencv_surface_matching.4.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4C23D5226442EC00DFE5D2 /* libopencv_surface_matching.4.1.dylib */; };
 		5B4C2463226442ED00DFE5D2 /* libopencv_stitching.4.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4C23D6226442ED00DFE5D2 /* libopencv_stitching.4.1.0.dylib */; };
 		5B4C2464226442ED00DFE5D2 /* libopencv_phase_unwrapping.4.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B4C23D7226442ED00DFE5D2 /* libopencv_phase_unwrapping.4.1.0.dylib */; };
-		5B4C246622644F6F00DFE5D2 /* Info.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5B4C2465226444A800DFE5D2 /* Info.plist */; };
+		5B4C246622644F6F00DFE5D2 /* Info.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5B4C2465226444A800DFE5D2 /* Info.plist */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5BC133F4229F56240080F305 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC133F3229F56240080F305 /* OpenGL.framework */; };
 		5BC133F6229F568A0080F305 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC133F5229F568A0080F305 /* libglfw.3.3.dylib */; };
 		5BC13404229F5AD40080F305 /* MarkerTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BC13403229F5AD40080F305 /* MarkerTracker.cpp */; };
@@ -159,13 +159,13 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		5B56FDDB2264098F00C3D187 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
 				5B4C246622644F6F00DFE5D2 /* Info.plist in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 

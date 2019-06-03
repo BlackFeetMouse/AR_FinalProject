@@ -11,6 +11,6 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>NSCameraUsageDescription</key>
-	<string>aaaaaaaaaasfjdka;sfjkasld;fjka;sjfdkl;safjl;sadjfasd</string>
+	<string>Use camera for opencv</string>
 </dict>
 </plist>

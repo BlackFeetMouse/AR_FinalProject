@@ -194,59 +194,69 @@ void display(GLFWwindow* window, const cv::Mat &img_bgr, std::vector<Marker> &ma
 	float resultMatrix_005A[16];
 	float resultMatrix_0272[16];
 	for(int i=0; i<markers.size(); i++){
-		const int code =markers[i].code;
+		const int code = markers[i].code;
 		if(code == 0x005a) {
 			for(int j=0; j<16; j++)
 				resultMatrix_005A[j] = markers[i].resultMatrix[j];
-		}else if(code == 0x0272){
+                for (int x=0; x<4; ++x)
+                    for (int y=0; y<4; ++y)
+                        resultTransposedMatrix[x*4+y] = resultMatrix_005A[y*4+x];
+//            glLoadIdentity();
+            glColor4f(1,1,1,1);
+//            glTranslatef((float) ballpos.x, (float) ballpos.y + 0.024f, (float) ballpos.z);
+
+            glLoadMatrixf(resultTransposedMatrix);
+            glRotatef(-90, 1, 0, 0);
+            drawSphere(0.001, 10, 10);
+        }else if(code == 0x0272){
 			for(int j=0; j<16; j++)
 				resultMatrix_0272[j] = markers[i].resultMatrix[j];
 		}
 	}
 
 
-	for (int x=0; x<4; ++x)
-		for (int y=0; y<4; ++y)
-			resultTransposedMatrix[x*4+y] = resultMatrix_005A[y*4+x];
-// Added in Exercise 9 - End *****************************************************************
-
-	//glLoadTransposeMatrixf( resultMatrix );
-	glLoadMatrixf( resultTransposedMatrix );
-	drawSnowman(true);
-
-
-// Added in Exercise 9 - Start *****************************************************************
-	rotateToMarker(resultMatrix_005A, resultMatrix_0272, 0x005a);
-
-	drawSnowman(true);
-
-	for (int x=0; x<4; ++x)
-		for (int y=0; y<4; ++y)
-			resultTransposedMatrix[x*4+y] = resultMatrix_0272[y*4+x];
-    float scale = 0.5;
-    resultTransposedMatrix[12] *= scale;  // x方向のスケール調整
-    resultTransposedMatrix[13] *= scale;  // y方向のスケール調整
-	glLoadMatrixf( resultTransposedMatrix );
-	
-	rotateToMarker(resultMatrix_0272, resultMatrix_005A, 0x0272);
-
-	drawSnowman(true);
-
-	//drawBall
-	glLoadIdentity();
-	glTranslatef((float) ballpos.x, (float) ballpos.y + 0.024f, (float) ballpos.z);
-	glColor4f(1,0,0,1);
-	drawSphere(0.005, 10, 10);
-// Added in Exercise 9 - End *****************************************************************
-
-	
-	//drawBall
-	for (int x=0; x<4; ++x)
-		for (int y=0; y<4; ++y)
-			resultTransposedMatrix[x*4+y] = resultMatrix_0272[y*4+x];
-	glLoadIdentity();
-	glLoadMatrixf( resultTransposedMatrix );
-	drawSphere(0.005, 10, 10);
+//    for (int x=0; x<4; ++x)
+//        for (int y=0; y<4; ++y)
+//            resultTransposedMatrix[x*4+y] = resultMatrix_005A[y*4+x];
+//// Added in Exercise 9 - End *****************************************************************
+//
+//    //glLoadTransposeMatrixf( resultMatrix );
+//    glLoadMatrixf( resultTransposedMatrix );
+//    drawSnowman(true);
+//
+//
+//// Added in Exercise 9 - Start *****************************************************************
+//    rotateToMarker(resultMatrix_005A, resultMatrix_0272, 0x005a);
+//
+//    drawSnowman(true);
+//
+//    for (int x=0; x<4; ++x)
+//        for (int y=0; y<4; ++y)
+//            resultTransposedMatrix[x*4+y] = resultMatrix_0272[y*4+x];
+//    float scale = 0.5;
+//    resultTransposedMatrix[12] *= scale;  // x方向のスケール調整
+//    resultTransposedMatrix[13] *= scale;  // y方向のスケール調整
+//    glLoadMatrixf( resultTransposedMatrix );
+//
+//    rotateToMarker(resultMatrix_0272, resultMatrix_005A, 0x0272);
+//
+//    drawSnowman(true);
+//
+//    //drawBall
+//    glLoadIdentity();
+//    glTranslatef((float) ballpos.x, (float) ballpos.y + 0.024f, (float) ballpos.z);
+//    glColor4f(1,0,0,1);
+//    drawSphere(0.005, 10, 10);
+//// Added in Exercise 9 - End *****************************************************************
+//
+//
+//    //drawBall
+//    for (int x=0; x<4; ++x)
+//        for (int y=0; y<4; ++y)
+//            resultTransposedMatrix[x*4+y] = resultMatrix_0272[y*4+x];
+//    glLoadIdentity();
+//    glLoadMatrixf( resultTransposedMatrix );
+//    drawSphere(0.005, 10, 10);
 
 	int key = cv::waitKey (10);
 	if (key == 27) exit(0);
@@ -318,7 +328,7 @@ int main(int argc, char* argv[]) {
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
-		markers.resize(0);
+//        markers.resize(0);
 		/* Capture here */
 		cap >> img_bgr;
 		
@@ -331,6 +341,7 @@ int main(int argc, char* argv[]) {
 
 		/* Track a marker */
 		markerTracker.findMarker( img_bgr, markers);///resultMatrix);
+//        std::cout << markers.size() << std::endl;
 
 //		cv::imshow("img_bgr", img_bgr);
 //		cv::waitKey(10); /// Wait for one sec.
