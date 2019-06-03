@@ -2,6 +2,7 @@
 #define MARKER_TRACKER_H
 
 #include <opencv2/core.hpp>    // include OpenCV core headers
+#include <iostream>
 
 using Pose = float[16];
 class Marker{
