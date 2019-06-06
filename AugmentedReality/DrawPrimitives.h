@@ -55,39 +55,39 @@ void solidCone(GLdouble base, GLdouble height, GLint slices, GLint stacks)
 void drawSnowman( bool female )
 {
 	glRotatef( -90, 1, 0, 0 );
-	glScalef(0.03, 0.03, 0.03);
+    glScalef(0.03, 0.03, 0.03);
 
 	// draw 3 white spheres
-	glColor4f( 1.0, 1.0, 1.0, 1.0 );
-	drawSphere( 0.8, 10, 10 );
-	glTranslatef( 0.0, 0.8, 0.0 );
-	drawSphere( 0.6, 10, 10 );
-	if(female)
-	{
-		glPushMatrix();
-		glRotatef(90, 0, 1, 0);
-		glTranslatef(-0.2, 0.05, 0.3);
-		drawSphere( 0.32, 10, 10 );
-		glTranslatef(0.4, 0, 0);
-		drawSphere( 0.32, 10, 10 );
-		glPopMatrix();
-	}
-	glTranslatef( 0.0, 0.6, 0.0 );
-	drawSphere( 0.4, 10, 10 );
-
-	// draw the eyes
-	glPushMatrix();
-	glColor4f( 0.0, 0.0, 0.0, 1.0 );
-	glTranslatef( 0.2, 0.2, 0.2 );
-	drawSphere( 0.066, 10, 10 );
-	glTranslatef( 0, 0, -0.4 );
-	drawSphere( 0.066, 10, 10 );
-	glPopMatrix();
-
-	// draw a nose
-	glColor4f( 1.0, 0.5, 0.0, 1.0 );
-	glTranslatef( 0.3, 0.0, 0.0 );
-	glRotatef( 90, 0, 1, 0 );
-	solidCone( 0.1, 0.3, 10, 10 );
+	glColor4f( 0.0, 0.0, 1.0, 1.0 );
+	drawSphere( 0.05, 10, 10 );
+//    glTranslatef( 0.0, 0.8, 0.0 );
+//    drawSphere( 0.6, 10, 10 );
+//    if(female)
+//    {
+//        glPushMatrix();
+//        glRotatef(90, 0, 1, 0);
+//        glTranslatef(-0.2, 0.05, 0.3);
+//        drawSphere( 0.32, 10, 10 );
+//        glTranslatef(0.4, 0, 0);
+//        drawSphere( 0.32, 10, 10 );
+//        glPopMatrix();
+//    }
+//    glTranslatef( 0.0, 0.6, 0.0 );
+//    drawSphere( 0.4, 10, 10 );
+//
+//    // draw the eyes
+//    glPushMatrix();
+//    glColor4f( 0.0, 0.0, 0.0, 1.0 );
+//    glTranslatef( 0.2, 0.2, 0.2 );
+//    drawSphere( 0.066, 10, 10 );
+//    glTranslatef( 0, 0, -0.4 );
+//    drawSphere( 0.066, 10, 10 );
+//    glPopMatrix();
+//
+//    // draw a nose
+//    glColor4f( 1.0, 0.5, 0.0, 1.0 );
+//    glTranslatef( 0.3, 0.0, 0.0 );
+//    glRotatef( 90, 0, 1, 0 );
+//    solidCone( 0.1, 0.3, 10, 10 );
 }
 // Added in Exercise 9 - End *****************************************************************
