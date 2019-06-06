@@ -1,7 +1,7 @@
 
 #define GLFW_INCLUDE_GLU
 #define GL_SILENCE_DEPRECATION
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 //#include <GL/glew.h>
 
 #include <iostream>
@@ -160,10 +160,6 @@ void display(GLFWwindow* window, const cv::Mat &img_bgr, std::vector<Marker> &ma
 	auto background_buffer_size = sizeof(bkgnd);
 	memcpy(bkgnd, img_bgr.data, background_buffer_size);
 
-	int width0, height0;
-	glfwGetFramebufferSize(window, &width0, &height0);
-//	reshape(window, width, height);
-
     // clear buffers
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
@@ -179,14 +175,11 @@ void display(GLFWwindow* window, const cv::Mat &img_bgr, std::vector<Marker> &ma
     gluOrtho2D( 0.0, camera_width, 0.0, camera_height );
 
     glRasterPos2i( 0, camera_height-1 );
-//    glDrawPixels( camera_width, camera_height, GL_BGR_EXT, GL_UNSIGNED_BYTE, bkgnd );
     glDrawPixels( camera_width, camera_height, GL_RGB, GL_UNSIGNED_BYTE, bkgnd );
     
     glPopMatrix();
 
     glEnable(GL_DEPTH_TEST);
-
-//	return;
 
     // move to marker-position
     glMatrixMode( GL_MODELVIEW );
@@ -197,67 +190,50 @@ void display(GLFWwindow* window, const cv::Mat &img_bgr, std::vector<Marker> &ma
 	for(int i=0; i<markers.size(); i++){
 		const int code = markers[i].code;
 		if(code == 0x005a) {
-			for(int j=0; j<16; j++)
+			for(int j=0; j<16; j++){
 				resultMatrix_005A[j] = markers[i].resultMatrix[j];
-                for (int x=0; x<4; ++x)
-                    for (int y=0; y<4; ++y)
-                        resultTransposedMatrix[x*4+y] = resultMatrix_005A[y*4+x];
-//            glLoadIdentity();
-            glColor4f(1,1,1,1);
-//            glTranslatef((float) ballpos.x, (float) ballpos.y + 0.024f, (float) ballpos.z);
+            }
+            for (int x=0; x<4; ++x){
+                for (int y=0; y<4; ++y){
+                    resultTransposedMatrix[x*4+y] = resultMatrix_005A[y*4+x];
+                }
+            }
 
-            glLoadMatrixf(resultTransposedMatrix);
-            glRotatef(-90, 1, 0, 0);
-            drawSphere(0.001, 10, 10);
+            // Fixed tranlate scale
+            float scale = 0.3;
+            resultTransposedMatrix[12] *= scale;  // x方向のスケール調整
+            resultTransposedMatrix[13] *= scale;  // y方向のスケール調整
+
         }else if(code == 0x0272){
-			for(int j=0; j<16; j++)
+			for(int j=0; j<16; j++){
 				resultMatrix_0272[j] = markers[i].resultMatrix[j];
+            }
 		}
 	}
 
+    glLoadIdentity();
+    glPushMatrix();
 
-//    for (int x=0; x<4; ++x)
-//        for (int y=0; y<4; ++y)
-//            resultTransposedMatrix[x*4+y] = resultMatrix_005A[y*4+x];
-//// Added in Exercise 9 - End *****************************************************************
-//
-//    //glLoadTransposeMatrixf( resultMatrix );
-//    glLoadMatrixf( resultTransposedMatrix );
-//    drawSnowman(true);
-//
-//
-//// Added in Exercise 9 - Start *****************************************************************
-//    rotateToMarker(resultMatrix_005A, resultMatrix_0272, 0x005a);
-//
-//    drawSnowman(true);
-//
-//    for (int x=0; x<4; ++x)
-//        for (int y=0; y<4; ++y)
-//            resultTransposedMatrix[x*4+y] = resultMatrix_0272[y*4+x];
-//    float scale = 0.5;
-//    resultTransposedMatrix[12] *= scale;  // x方向のスケール調整
-//    resultTransposedMatrix[13] *= scale;  // y方向のスケール調整
-//    glLoadMatrixf( resultTransposedMatrix );
-//
-//    rotateToMarker(resultMatrix_0272, resultMatrix_005A, 0x0272);
-//
-//    drawSnowman(true);
-//
-//    //drawBall
-//    glLoadIdentity();
-//    glTranslatef((float) ballpos.x, (float) ballpos.y + 0.024f, (float) ballpos.z);
-//    glColor4f(1,0,0,1);
-//    drawSphere(0.005, 10, 10);
-//// Added in Exercise 9 - End *****************************************************************
-//
-//
-//    //drawBall
-//    for (int x=0; x<4; ++x)
-//        for (int y=0; y<4; ++y)
-//            resultTransposedMatrix[x*4+y] = resultMatrix_0272[y*4+x];
-//    glLoadIdentity();
-//    glLoadMatrixf( resultTransposedMatrix );
-//    drawSphere(0.005, 10, 10);
+    glLoadMatrixf(resultTransposedMatrix);
+
+    // drawSphere(0.001, 10, 10);
+    drawSnowman(false);
+
+    GLfloat m[16];
+    glGetFloatv(GL_MODELVIEW_MATRIX, m);
+    printf("現在のmatrix\n");
+    printf("m[0]:% 7.5f m[4]:% 7.5f m[8] :% 7.5f m[12]:% 7.5f\n", m[0], m[4], m[8],  m[12]);
+    printf("m[1]:% 7.5f m[5]:% 7.5f m[9] :% 7.5f m[13]:% 7.5f\n", m[1], m[5], m[9],  m[13]);
+    printf("m[2]:% 7.5f m[6]:% 7.5f m[10]:% 7.5f m[14]:% 7.5f\n", m[2], m[6], m[10], m[14]);
+    printf("m[3]:% 7.5f m[7]:% 7.5f m[11]:% 7.5f m[16]:% 7.5f\n", m[3], m[7], m[11], m[15]);
+
+	glBegin(GL_LINES);
+	glColor3f(1.f, 0.f, 0.f);
+	glVertex3f(0.f, 0.f, 0.f);
+    glPopMatrix();
+	glColor3f(0.f, 0.f, 0.f);
+	glVertex3f(0.f, -0.4f, 0.f);
+	glEnd();
 
 	int key = cv::waitKey (10);
 	if (key == 27) exit(0);
@@ -295,8 +271,8 @@ int main(int argc, char* argv[]) {
 
 	// initialize the window system
 	/* Create a windowed mode window and its OpenGL context */
-//    window = glfwCreateWindow(camera_width, camera_height, "Exercise 8 - Combine", NULL, NULL);
-    window = glfwCreateWindow(camera_width/2, camera_height/2, "Game Window", NULL, NULL);
+    window = glfwCreateWindow(camera_width, camera_height, "Exercise 8 - Combine", NULL, NULL);
+//     window = glfwCreateWindow(camera_width/2, camera_height/2, "Game Window", NULL, NULL);
     if (!window)
 	{
 		glfwTerminate();
@@ -319,7 +295,7 @@ int main(int argc, char* argv[]) {
 	initGL(argc, argv);
 
     // setup OpenCV
-	cv::Mat img_bgr;
+	cv::Mat img_bgr, img_bgr_inv;
 	InitializeVideoStream(cap);
 	const double kMarkerSize = 0.03;// 0.048; // [m]
 	MarkerTracker markerTracker(kMarkerSize);
@@ -329,9 +305,10 @@ int main(int argc, char* argv[]) {
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
-//        markers.resize(0);
+        markers.resize(0);
 		/* Capture here */
-		cap >> img_bgr;
+		cap >> img_bgr_inv;
+        cv::flip(img_bgr_inv, img_bgr, 1);
 		
 		if(img_bgr.empty()){
 			std::cout << "Could not query frame. Trying to reinitialize." << std::endl;

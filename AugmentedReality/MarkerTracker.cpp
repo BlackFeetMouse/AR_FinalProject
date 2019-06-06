@@ -13,7 +13,7 @@
 #include "PoseEstimation.h"
 
 //////////// Turn this on for debug
-// #define MARKER_TRACKER_DEBUG
+#define MARKER_TRACKER_DEBUG
 ////////////
 
 void trackbarHandler( int pos, void* slider_value ) {
