@@ -18,8 +18,6 @@
 
 // Added in Exercise 9 - Start *****************************************************************
 
-struct Position { double x,y,z; };
-
 bool debugmode = false;
 bool balldebug = false;
 
