@@ -18,8 +18,6 @@
 
 // Added in Exercise 9 - Start *****************************************************************
 
-struct Position { double x,y,z; };
-
 bool debugmode = false;
 bool balldebug = false;
 
@@ -199,6 +197,8 @@ void display(GLFWwindow* window, const cv::Mat &img_bgr, std::vector<Marker> &ma
 	float resultMatrix_0272[16];
 	for(int i=0; i<markers.size(); i++){
 		const int code = markers[i].code;
+        const float scale = 0.3;
+
 		if(code == 0x005a) {
 			for(int j=0; j<16; j++){
 				resultMatrix_005A[j] = markers[i].resultMatrix[j];
@@ -206,14 +206,21 @@ void display(GLFWwindow* window, const cv::Mat &img_bgr, std::vector<Marker> &ma
             for (int x=0; x<4; ++x){
                 for (int y=0; y<4; ++y){
                     resultTransposedMatrix[x*4+y] = resultMatrix_005A[y*4+x];
+                    if(x*4+y >= 12 && x*4+y <= 13) resultTransposedMatrix[x*4+y] *= scale;
+                    else if(x*4+y == 14) resultTransposedMatrix[x*4+y] *= 1;
+                    else if(x == y) resultTransposedMatrix[x*4+y] = 1;
+                    else resultTransposedMatrix[x*4+y] = 0;
                 }
             }
 
-            // Fixed tranlate scale
-            float scale = 0.3;
-            resultTransposedMatrix[12] *= scale;  // x方向のスケール調整
-            resultTransposedMatrix[13] *= scale;  // y方向のスケール調整
 
+            glLoadIdentity();
+            glPushMatrix();
+            
+            glLoadMatrixf(resultTransposedMatrix);
+            
+            // drawSphere(0.001, 10, 10);
+            drawSnowman(false);
         }else if(code == 0x0272){
 			for(int j=0; j<16; j++){
 				resultMatrix_0272[j] = markers[i].resultMatrix[j];
@@ -236,7 +243,7 @@ void display(GLFWwindow* window, const cv::Mat &img_bgr, std::vector<Marker> &ma
     printf("m[1]:% 7.5f m[5]:% 7.5f m[9] :% 7.5f m[13]:% 7.5f\n", m[1], m[5], m[9],  m[13]);
     printf("m[2]:% 7.5f m[6]:% 7.5f m[10]:% 7.5f m[14]:% 7.5f\n", m[2], m[6], m[10], m[14]);
     printf("m[3]:% 7.5f m[7]:% 7.5f m[11]:% 7.5f m[16]:% 7.5f\n", m[3], m[7], m[11], m[15]);
-
+    
 	glBegin(GL_LINES);
 	glColor3f(1.f, 0.f, 0.f);
 	glVertex3f(0.f, 0.f, 0.f);
@@ -330,8 +337,8 @@ int main(int argc, char* argv[]) {
 
 	// initialize the window system
 	/* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(camera_width, camera_height, "Exercise 8 - Combine", NULL, NULL);
-//     window = glfwCreateWindow(camera_width/2, camera_height/2, "Game Window", NULL, NULL);
+//    window = glfwCreateWindow(camera_width, camera_height, "Exercise 8 - Combine", NULL, NULL);
+    window = glfwCreateWindow(camera_width/2, camera_height/2, "Game Window", NULL, NULL);
     if (!window)
 	{
 		glfwTerminate();
@@ -364,7 +371,7 @@ int main(int argc, char* argv[]) {
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
-        markers.resize(0);
+//        markers.resize(0);
 		/* Capture here */
 		cap >> img_bgr_inv;
         cv::flip(img_bgr_inv, img_bgr, 1);
