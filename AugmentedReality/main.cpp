@@ -30,6 +30,14 @@ Position ballpos;
 int ballspeed = 100;
 // Added in Exercise 9 - End *****************************************************************
 
+struct Point{
+    Position pos;
+    float rgb[3];
+    float size;
+};
+
+std::vector<std::vector<Point>> lines;
+
 //camera settings
 const int camera_width  = 1280;
 const int camera_height = 720;
