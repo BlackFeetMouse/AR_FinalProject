@@ -119,19 +119,10 @@ void drawCapsule(double r, int lats, int longs, Position position1, Position pos
     double axisy = vx;
     double axisz = 0.0;
 
-    printf("acos:%lf, axisx:%lf, axisy:%lf, axisz:%lf, length:%lf\n", acosx, axisx, axisy, axisz, length);
-
     glPushMatrix();
     glTranslatef( position1.x, position1.y, position1.z );
     glRotatef(acosx / M_PI * 180, axisx, axisy, axisz);
     drawCapsule_(r, lats, longs, length);
-    GLfloat m[16];
-    glGetFloatv(GL_MODELVIEW_MATRIX, m);
-    printf("現在のmatrix\n");
-    printf("m[0]:% 7.5f m[4]:% 7.5f m[8] :% 7.5f m[12]:% 7.5f\n", m[0], m[4], m[8],  m[12]);
-    printf("m[1]:% 7.5f m[5]:% 7.5f m[9] :% 7.5f m[13]:% 7.5f\n", m[1], m[5], m[9],  m[13]);
-    printf("m[2]:% 7.5f m[6]:% 7.5f m[10]:% 7.5f m[14]:% 7.5f\n", m[2], m[6], m[10], m[14]);
-    printf("m[3]:% 7.5f m[7]:% 7.5f m[11]:% 7.5f m[16]:% 7.5f\n", m[3], m[7], m[11], m[15]);
     glPopMatrix();
 
 }
