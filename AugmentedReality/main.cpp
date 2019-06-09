@@ -39,6 +39,8 @@ struct Point{
 };
 
 std::vector<std::vector<Point>> lines;
+//drawing color settings;
+float draw_color_rgb[3];
 
 //camera settings
 const int camera_width  = 1280;
@@ -249,7 +251,56 @@ void display(GLFWwindow* window, const cv::Mat &img_bgr, std::vector<Marker> &ma
 	else if (key == 100) debugmode = !debugmode;
 	else if (key == 98) balldebug = !balldebug;
 	// Added in Exercise 9 - End *****************************************************************
-	
+    else if (key == 48){
+        draw_color_rgb[0] = 0;
+        draw_color_rgb[1] = 0;
+        draw_color_rgb[2] = 0;
+    }
+    else if (key == 49){
+        draw_color_rgb[0] = 1;
+        draw_color_rgb[1] = 0;
+        draw_color_rgb[2] = 0;
+    }
+    else if (key == 50){
+        draw_color_rgb[0] = 0;
+        draw_color_rgb[1] = 1;
+        draw_color_rgb[2] = 0;
+    }
+    else if (key == 51){
+        draw_color_rgb[0] = 1;
+        draw_color_rgb[1] = 1;
+        draw_color_rgb[2] = 0;
+    }
+    else if (key == 52){
+        draw_color_rgb[0] = 0;
+        draw_color_rgb[1] = 0;
+        draw_color_rgb[2] = 1;
+    }
+    else if (key == 53){
+        draw_color_rgb[0] = 1;
+        draw_color_rgb[1] = 0;
+        draw_color_rgb[2] = 1;
+    }
+    else if (key == 54){
+        draw_color_rgb[0] = 0;
+        draw_color_rgb[1] = 1;
+        draw_color_rgb[2] = 1;
+    }
+    else if (key == 55){
+        draw_color_rgb[0] = 1;
+        draw_color_rgb[1] = 1;
+        draw_color_rgb[2] = 1;
+    }
+    else if (key == 56){
+        draw_color_rgb[0] = 0.25;
+        draw_color_rgb[1] = 0.25;
+        draw_color_rgb[2] = 0.25;
+    }
+    else if (key == 57){
+        draw_color_rgb[0] = 0.75;
+        draw_color_rgb[1] = 0.75;
+        draw_color_rgb[2] = 0.75;
+    }
 }
 
 void reshape( GLFWwindow* window, int width, int height ) {
