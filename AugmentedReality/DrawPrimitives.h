@@ -19,7 +19,7 @@ void drawSphere(double r, int lats, int longs) {
 	for(i = 0; i <= lats; i++) {
 		double lat0 = M_PI * (-0.5 + (double) (i - 1) / lats);
 		double z0  = r * sin(lat0);
-		double zr0 = r *  cos(lat0);
+		double zr0 = r * cos(lat0);
 
 		double lat1 = M_PI * (-0.5 + (double) i / lats);
 		double z1  = r * sin(lat1);
@@ -40,19 +40,13 @@ void drawSphere(double r, int lats, int longs) {
 	}
 }
 
-void drawCapsule(double r, int lats, int longs, Position position1, Position position2) {
-    double vx = position2.x - position1.x;
-    double vy = position2.y - position1.y;
-    double vz = position2.z - position1.z;
-}
-
 void drawCapsule_(double r, int lats, int longs, double length) {
 	int i, j;
     int halfLats = lats / 2;
 	for(i = 0; i <= halfLats; i++) {
 		double lat0 = M_PI * (-0.5 + (double) (i - 1) / lats);
 		double z0  = r * sin(lat0);
-		double zr0 = r *  cos(lat0);
+		double zr0 = r * cos(lat0);
 
 		double lat1 = M_PI * (-0.5 + (double) i / lats);
 		double z1  = r * sin(lat1);
@@ -92,7 +86,7 @@ void drawCapsule_(double r, int lats, int longs, double length) {
     for(i = halfLats; i <= lats; i++) {
         double lat0 = M_PI * (-0.5 + (double) (i - 1) / lats);
         double z0  = r * sin(lat0);
-        double zr0 = r *  cos(lat0);
+        double zr0 = r * cos(lat0);
 
         double lat1 = M_PI * (-0.5 + (double) i / lats);
         double z1  = r * sin(lat1);
@@ -113,6 +107,34 @@ void drawCapsule_(double r, int lats, int longs, double length) {
     }
 }
 
+void drawCapsule(double r, int lats, int longs, Position position1, Position position2) {
+    double vx = position2.x - position1.x;
+    double vy = position2.y - position1.y;
+    double vz = position2.z - position1.z;
+    double length = sqrt(vx * vx + vy * vy + vz * vz);
+
+    double acosx = acos(vz / length);
+
+    double axisx = -vy;
+    double axisy = vx;
+    double axisz = 0.0;
+
+    printf("acos:%lf, axisx:%lf, axisy:%lf, axisz:%lf, length:%lf\n", acosx, axisx, axisy, axisz, length);
+
+    glPushMatrix();
+    glTranslatef( position1.x, position1.y, position1.z );
+    glRotatef(acosx / M_PI * 180, axisx, axisy, axisz);
+    drawCapsule_(r, lats, longs, length);
+    GLfloat m[16];
+    glGetFloatv(GL_MODELVIEW_MATRIX, m);
+    printf("現在のmatrix\n");
+    printf("m[0]:% 7.5f m[4]:% 7.5f m[8] :% 7.5f m[12]:% 7.5f\n", m[0], m[4], m[8],  m[12]);
+    printf("m[1]:% 7.5f m[5]:% 7.5f m[9] :% 7.5f m[13]:% 7.5f\n", m[1], m[5], m[9],  m[13]);
+    printf("m[2]:% 7.5f m[6]:% 7.5f m[10]:% 7.5f m[14]:% 7.5f\n", m[2], m[6], m[10], m[14]);
+    printf("m[3]:% 7.5f m[7]:% 7.5f m[11]:% 7.5f m[16]:% 7.5f\n", m[3], m[7], m[11], m[15]);
+    glPopMatrix();
+
+}
 
 void solidCone(GLdouble base, GLdouble height, GLint slices, GLint stacks)
 {
